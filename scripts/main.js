@@ -33,7 +33,7 @@ function getFaceitElo() {
 
     level = json.payload.games.csgo.skill_level;
     elo = (json.payload.games.csgo.faceit_elo) ? json.payload.games.csgo.faceit_elo : '-';
-    afk = (json.payload.infractions.afk) ? json.payload.infractions.afk : '-';
+    afk = (json.payload.infractions) ? json.payload.infractions.afk : '-';
 	
 	//Get FACEIT live match
     var oReq = new XMLHttpRequest();
