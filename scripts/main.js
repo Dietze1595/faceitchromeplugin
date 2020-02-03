@@ -1,20 +1,3 @@
-let playerId
-let level
-let afk
-let leaver
-let nickname  = "Blacklisted Person"
-let teamname1
-let teamname2
-let faceitmatch
-let playing = ""
-let Matches = 0
-let Wins = 0
-let KD = 0
-let HS = 0
-let Rate = 0
-let elo = 0
-
-
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
 
