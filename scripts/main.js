@@ -1,55 +1,58 @@
-let token = "Bearer 72d06f36-b794-402f-a49b-166300da8013"
-let playerId = ""
-let membership
+let playerId
 let level
 let afk
 let leaver
-let nickname
+let nickname  = "Blacklisted Person"
 let teamname1
 let teamname2
 let faceitmatch
-let playing
+let playing = ""
+let Matches = 0
+let Wins = 0
+let KD = 0
+let HS = 0
+let Rate = 0
+let elo = 0
 
 
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
 
-    //We get FACEIT.com username from public API
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", getFaceitId);
-    oReq.open("GET", "https://open.faceit.com/data/v4/players?game=csgo&game_player_id=" + steamid, true);
-	oReq.setRequestHeader('Authorization', token);
-    oReq.send();
+	//Get Faceit userId & nickname
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", getFaceitId);
+	oReq.open("GET", "https://api.faceit.com/search/v1?limit=5&query=" + steamid, true);
+	oReq.send();
 }
 
 function getFaceitId() {
     let json = JSON.parse(this.responseText);
 	
+	if(!json.payload.players.results[0].nickname)
+        return;
+	
+    nickname = json.payload.players.results[0].nickname;
+	playerId = json.payload.players.results[0].guid;
 
-    playerId = json.player_id;
 
-    //Get FACEIT Elo
+	// Get Faceit csgo stats
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", getFaceitElo);
-    oReq.open("GET", "https://open.faceit.com/data/v4/players/" + playerId, true);
-	oReq.setRequestHeader('Authorization', token);
+    oReq.open("GET", "https://api.faceit.com/core/v1/nicknames/" + nickname, true);
     oReq.send();
 }
 
 function getFaceitElo() {
     let json = JSON.parse(this.responseText);
-	
-    if (!json.games.csgo)
+
+    if (!json.payload.games.csgo)
         return;
 
-    membership = json.membership_type;
-    level = json.games.csgo.skill_level;
-    elo = (json.games.csgo.faceit_elo) ? json.games.csgo.faceit_elo : '-';
-    afk = (json.infractions.afk) ? json.infractions.afk : '-';
-    leaver = (json.infractions) ? json.infractions.leaver : '-';
-    nickname = json.nickname;
+    level = json.payload.games.csgo.skill_level;
+    elo = (json.payload.games.csgo.faceit_elo) ? json.payload.games.csgo.faceit_elo : '-';
+    afk = (json.payload.infractions.afk) ? json.payload.infractions.afk : '-';
 	
-	//Get FACEIT Data
+	//Get FACEIT live match
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", getFaceitMatch);
     oReq.open("GET", "https://api.faceit.com/match/v1/matches/groupByState?userId=" + playerId);
@@ -73,13 +76,10 @@ function getFaceitMatch(){
 		playing = "Go To Room"
 	}
 	
-	
-	
-	
+	// Get Faceit lifetime stats
 	var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", getFaceitData);
-    oReq.open("GET", "https://open.faceit.com/data/v4/players/" + playerId + "/stats/csgo", true);
-	oReq.setRequestHeader('Authorization', token);
+    oReq.open("GET", "https://api.faceit.com//stats/api/v1/stats/users/" + playerId + "/games/csgo", true);
     oReq.send();
 }
 
@@ -88,12 +88,16 @@ function getFaceitMatch(){
 function getFaceitData() {
     let json = JSON.parse(this.responseText);
 
-    let Matches = json.lifetime.Matches;
-    let Wins = json.lifetime.Wins;
-    let KD = json.lifetime["Average K/D Ratio"];
-    let HS = json.lifetime["Average Headshots %"];
-    let Rate = json.lifetime["Win Rate %"];
+    Matches = json.lifetime.m1;
+    Wins = json.lifetime.m2;
+    KD = json.lifetime.k5;
+    HS = json.lifetime.k8;
+    Rate = json.lifetime.k6;
+	html();
 
+}
+
+function html(){
 	
 	
     //Select the element where to show faceit profile data
