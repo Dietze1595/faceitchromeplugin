@@ -14,10 +14,16 @@ function getFaceitId() {
 	if(!json.payload.players.results[0].nickname)
         return;
 	
-    nickname = json.payload.players.results[0].nickname;
-	playerId = json.payload.players.results[0].guid;
-
-
+	json.payload.players.results.forEach((user, index) => {
+        if (user.games.length > 0) {
+            user.games.forEach((game) => {
+                if (game.name == 'csgo')
+                    nickname = json.payload.players.results[index].nickname;
+                    playerId = json.payload.players.results[index].guid;
+            })
+        }
+    });
+		
 	// Get Faceit csgo stats
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", getFaceitElo);
@@ -34,6 +40,7 @@ function getFaceitElo() {
     level = json.payload.games.csgo.skill_level;
     elo = (json.payload.games.csgo.faceit_elo) ? json.payload.games.csgo.faceit_elo : '-';
     afk = (json.payload.infractions) ? json.payload.infractions.afk : '-';
+	
 	
 	//Get FACEIT live match
     var oReq = new XMLHttpRequest();
