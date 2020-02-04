@@ -188,8 +188,8 @@ function html(){
 												<td style="text-align:center; width:16%">Matches</td>
 												<td style="text-align:center; width:16%">ELO</td>
 												<td style="text-align:center; width:16%">*AVG Kills</td>
-												<td style="text-align:center; width:16%">*AVG K/D</td>
 												<td style="text-align:center; width:16%">*AVG HS%</td>
+												<td style="text-align:center; width:16%">*AVG K/D</td>
 												<td style="text-align:center; width:16%">*AVG K/R</td>
 											</tr>
 											<tr style="color: #62a7e3; font-size:1.4em">
