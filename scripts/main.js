@@ -105,10 +105,17 @@ function getAvgData() {
 	divid = 0;
 	KD = 0;
 	KR = 0;
-	length =json.length;
 	
 	if(json.length==0)
 		html();
+	
+	if(json.length < 20){
+		length =json.length;
+	} else {
+		length=20;
+	}
+	
+	
 	
 	for(i=0; i<length; i++){
 		if(json[i].gameMode !== '5v5'){
