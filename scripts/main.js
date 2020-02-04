@@ -11,7 +11,8 @@ if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID
 function getFaceitId() {
     let json = JSON.parse(this.responseText);
 	
-	if(!json.payload.players.results[0].nickname)
+	console.log(json)
+	if(json.payload.players.results.length == 0)
         return;
 	
 	json.payload.players.results.forEach((user, index) => {
@@ -145,8 +146,8 @@ function html(){
 												` + nickname + `
 											</a>
 										</td>
-										<td style="text-align:end; font-size:1em; width:40%"> <span>'Last 20 Matches'</td>
-										<td style="text-align:end; width:40%">
+										<td style="text-align:end; font-size:1em; width:45%"> <span>* Last 20 Matches</td>
+										<td style="text-align:end; width:35%">
 											<a style="color:#8e4100; font-weight: bold; font-size: 20px; font-family: Motiva Sans, Sans-serif; font-weight: 200; target="_blank" style="display:block" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
 												` + playing + `
 											</a>
@@ -161,10 +162,10 @@ function html(){
 											<tr style="color: #ccc; font-size:1.3em">
 												<td style="text-align:center; width:16%">Matches</td>
 												<td style="text-align:center; width:16%">ELO</td>
-												<td style="text-align:center; width:16%">AVG Kills</td>
-												<td style="text-align:center; width:16%">AVG HS%</td>
-												<td style="text-align:center; width:16%">AVG K/D</td>
-												<td style="text-align:center; width:16%">AVG K/R</td>
+												<td style="text-align:center; width:16%">*AVG Kills</td>
+												<td style="text-align:center; width:16%">*AVG HS%</td>
+												<td style="text-align:center; width:16%">*AVG K/D</td>
+												<td style="text-align:center; width:16%">*AVG K/R</td>
 											</tr>
 											<tr style="color: #62a7e3; font-size:1.4em">
 												<td style="text-align:center; width:16%"><span>`+ Wins + "/" + Matches +`</span>
