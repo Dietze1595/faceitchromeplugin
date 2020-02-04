@@ -69,7 +69,7 @@ function getFaceitMatch(){
 	// Get Faceit lifetime stats
 	var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", getFaceitData);
-    oReq.open("GET", "https://api.faceit.com//stats/api/v1/stats/users/" + playerId + "/games/csgo", true);
+    oReq.open("GET", "https://api.faceit.com/stats/api/v1/stats/users/" + playerId + "/games/csgo", true);
     oReq.send();
 }
 
@@ -80,9 +80,40 @@ function getFaceitData() {
 
     Matches = json.lifetime.m1;
     Wins = json.lifetime.m2;
-    KD = json.lifetime.k5;
-    HS = json.lifetime.k8;
-    Rate = json.lifetime.k6;
+	
+	var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", getAvgData);
+    oReq.open("GET", "https://api.faceit.com/stats/v1/stats/time/users/" + playerId + "/games/csgo?size=50", true);
+    oReq.send();
+}
+
+
+function getAvgData() {
+    let json = JSON.parse(this.responseText);
+	
+	kills = 0;
+	HS = 0;
+	KD = 0;
+	KR = 0;
+	length =20;
+	
+	for(i=0; i<length; i++){
+		if(json[i].gameMode !== '5v5'){
+			length = length + 1;
+		} else {
+			kills = parseInt(json[i].i6) + kills;
+			HS = parseInt(json[i].c4 * 100) + HS;
+			KD = parseInt(json[i].c2 * 100) + KD;
+			KR = parseInt(json[i].c3 * 100) + KR;
+			console.log(KD)
+		}
+	}
+	
+    AvgKills = Math.round(kills/20);
+    AvgHs = Math.round(HS/2000);
+    AvgKD = (KD/2000).toFixed(2);
+    AvgKR = (KR/2000).toFixed(2);	
+	
 	html();
 
 }
@@ -104,7 +135,7 @@ function html(){
                     <div class="favoritegroup_showcase_group showcase_slot" style="padding-left: 0px;height:55px">                  
                         <div class="favoritegroup_content">
                             <div class="favoritegroup_namerow ellipsis" style="float:left;margin-left: 12px;overflow:unset">
-							<table align="center" style="font-size:0.07em; width:100%; font-weight: bold">
+							<table align="center" style="font-size:1em; width:100%; font-weight: bold">
 								<tbody>
 									<tr style="vertical-align: middle">
 										<td style="margin-left: auto; margin-right: auto; width:10%">
@@ -115,7 +146,8 @@ function html(){
 												` + nickname + `
 											</a>
 										</td>
-										<td style="text-align:end; width:80%">
+										<td style="text-align:end; font-size:1em; width:40%"> <span>'Last 20 Matches'</td>
+										<td style="text-align:end; width:40%">
 											<a style="color:#8e4100; font-weight: bold; font-size: 20px; font-family: Motiva Sans, Sans-serif; font-weight: 200; target="_blank" style="display:block" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
 												` + playing + `
 											</a>
@@ -129,24 +161,24 @@ function html(){
 										<tbody>
 											<tr style="color: #ccc; font-size:1.3em">
 												<td style="text-align:center; width:16%">Matches</td>
-												<td style="text-align:center; width:16%">AVG K/D</td>
-												<td style="text-align:center; width:16%">AVG HS%</td>
-												<td style="text-align:center; width:16%">Win Rate %</td>
-												<td style="text-align:center; width:16%">AFK</td>
 												<td style="text-align:center; width:16%">ELO</td>
+												<td style="text-align:center; width:16%">AVG Kills</td>
+												<td style="text-align:center; width:16%">AVG HS%</td>
+												<td style="text-align:center; width:16%">AVG K/D</td>
+												<td style="text-align:center; width:16%">AVG K/R</td>
 											</tr>
 											<tr style="color: #62a7e3; font-size:1.4em">
 												<td style="text-align:center; width:16%"><span>`+ Wins + "/" + Matches +`</span>
 												</td>
-												<td style="text-align:center; width:16%"><span>` + KD + `</span>
-												</td>
-												<td style="text-align:center; width:16%"><span>` + HS + `</span>
-												</td>
-												<td style="text-align:center; width:16%"><span>` + Rate + `</span>
-												</td>
-												<td style="text-align:center; width:16%"><span>` + afk + `</span>
-												</td>
 												<td style="text-align:center; width:16%"><span>` + elo + `</span>
+												</td>
+												<td style="text-align:center; width:16%"><span>` + AvgKills + `</span>
+												</td>
+												<td style="text-align:center; width:16%"><span>` + AvgHs + `</span>
+												</td>
+												<td style="text-align:center; width:16%"><span>` + AvgKD + `</span>
+												</td>
+												<td style="text-align:center; width:16%"><span>` + AvgKR + `</span>
 												</td>
 											</tr>
 										</tbody>
