@@ -105,7 +105,6 @@ function getAvgData() {
 			HS = parseInt(json[i].c4 * 100) + HS;
 			KD = parseInt(json[i].c2 * 100) + KD;
 			KR = parseInt(json[i].c3 * 100) + KR;
-			console.log(KD)
 		}
 	}
 	
