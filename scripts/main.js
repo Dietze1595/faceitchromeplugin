@@ -1,6 +1,14 @@
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
 
+	if(steamid=="76561198240345842" || steamid == "76561198353358665"){
+		VIP = "Tester"
+	} else if(steamid == "76561198257065483" || steamid == "76561198071212797"){
+		VIP = "Creator"
+	} else {
+		VIP = ""
+	}
+		
 	//Get Faceit userId & nickname
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", getFaceitId);
@@ -94,14 +102,19 @@ function getAvgData() {
 	
 	kills = 0;
 	HS = 0;
+	divid = 0;
 	KD = 0;
 	KR = 0;
-	length =20;
+	length =json.length;
+	
+	if(json.length==0)
+		html();
 	
 	for(i=0; i<length; i++){
 		if(json[i].gameMode !== '5v5'){
 			length = length + 1;
 		} else {
+			divid = divid + 1;
 			kills = parseInt(json[i].i6) + kills;
 			HS = parseInt(json[i].c4 * 100) + HS;
 			KD = parseInt(json[i].c2 * 100) + KD;
@@ -109,10 +122,10 @@ function getAvgData() {
 		}
 	}
 	
-    AvgKills = Math.round(kills/20);
-    AvgHs = Math.round(HS/2000);
-    AvgKD = (KD/2000).toFixed(2);
-    AvgKR = (KR/2000).toFixed(2);	
+    AvgKills = Math.round(kills/divid);
+    AvgHs = Math.round(HS/divid/100);
+    AvgKD = (KD/divid/100).toFixed(2);
+    AvgKR = (KR/divid/100).toFixed(2);	
 	
 	html();
 
@@ -127,11 +140,23 @@ function html(){
     //Add the box with the data
     customize.innerHTML = `
     <div class="profile_customization">
-        <div class="profile_customization_header">Faceitstats</div>
+        <div class="profile_customization_header">
+		
+		<table align="center" style="font-size:1em; width:100%; font-weight: bold">
+			<tbody>
+				<tr style="vertical-align: middle">
+					<td style="margin-left: auto; margin-right: auto; width:50%">Faceitstats</td>
+					<td style="text-align:end; width:50%; color:#D5AD6D; font-family: Motiva Sans">` + VIP + `
+					</td>			
+					</tr>
+				</tbody>
+			</table>
+		
+		
+		</div>
         <div class="profile_customization_block">
             <div class="favoritegroup_showcase">
-                <div class="showcase_content_bg" style="padding-right: 0px";
->
+                <div class="showcase_content_bg" style="padding-right: 0px">
                     <div class="favoritegroup_showcase_group showcase_slot" style="padding-left: 0px;height:55px">                  
                         <div class="favoritegroup_content">
                             <div class="favoritegroup_namerow ellipsis" style="float:left;margin-left: 12px;overflow:unset">
@@ -163,8 +188,8 @@ function html(){
 												<td style="text-align:center; width:16%">Matches</td>
 												<td style="text-align:center; width:16%">ELO</td>
 												<td style="text-align:center; width:16%">*AVG Kills</td>
-												<td style="text-align:center; width:16%">*AVG HS%</td>
 												<td style="text-align:center; width:16%">*AVG K/D</td>
+												<td style="text-align:center; width:16%">*AVG HS%</td>
 												<td style="text-align:center; width:16%">*AVG K/R</td>
 											</tr>
 											<tr style="color: #62a7e3; font-size:1.4em">
