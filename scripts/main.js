@@ -1,8 +1,8 @@
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
-	
-    	if (steamid == "76561198353358665"){
-		VIP = "Crazy Supporter"
+
+	if(steamid == "76561198257065483" || steamid == "76561198071212797"){
+		VIP = "Creator"
 	} else {
 		VIP = ""
 	}
