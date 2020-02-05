@@ -1,8 +1,15 @@
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
-
-	if(steamid == "76561198257065483" || steamid == "76561198071212797"){
+	var Tester = ["76561198240345842"];
+	var Supporter = ["76561198353358665"];
+	var Creator = ["76561198257065483", "76561198071212797"];
+	
+	if(Tester.includes(steamid)){
+		VIP = "Tester"
+	} else if(Creator.includes(steamid)){
 		VIP = "Creator"
+	} else if (Supporter.includes(steamid)){
+		VIP = "Crazy Supporter"
 	} else {
 		VIP = ""
 	}
@@ -27,6 +34,7 @@ function getFaceitId() {
                 if (game.name == 'csgo')
                     nickname = json.payload.players.results[index].nickname;
                     playerId = json.payload.players.results[index].guid;
+					flag = "https://cdn-frontend.faceit.com/web/112-1536332382/src/app/assets/images-compress/flags/" + json.payload.players.results[index].country.toUpperCase() + ".png";
             })
         }
     });
@@ -171,13 +179,16 @@ function html(){
 										<td style="margin-left: auto; margin-right: auto; width:10%">
 											<img src="https://cdn-frontend.faceit.com/web/960/src/app/assets/images-compress/skill-icons/skill_level_` + level + `_svg.svg" style="display:block; width:70%">
 										</td>
+										<td style="margin-left: auto; margin-right: auto; width:10%">
+											<img src="` + flag + `" style="display:block; width:70%">
+										</td>
 										<td style="text-align:center; width:10%; height:35px">
 											<a class="favoritegroup_name whiteLink" style="xx-large; display:block" target="_blank" href="https://www.faceit.com/en/players/` + nickname + `">
 												` + nickname + `
 											</a>
 										</td>
-										<td style="text-align:end; font-size:1em; width:45%"> <span>* Last 20 Matches</td>
-										<td style="text-align:end; width:35%">
+										<td style="text-align:end; font-size:1em; width:30%"> <span>* Last 20 Matches</td>
+										<td style="text-align:end; width:30%">
 											<a style="color:#8e4100; font-weight: bold; font-size: 20px; font-family: Motiva Sans, Sans-serif; font-weight: 200; target="_blank" style="display:block" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
 												` + playing + `
 											</a>
