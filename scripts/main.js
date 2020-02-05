@@ -32,10 +32,12 @@ function getFaceitId() {
         if (user.games.length > 0) {
             user.games.forEach((game) => {
                 if (game.name == 'csgo')
+				{
                     nickname = json.payload.players.results[index].nickname;
                     playerId = json.payload.players.results[index].guid;
 					flag = "https://cdn-frontend.faceit.com/web/112-1536332382/src/app/assets/images-compress/flags/" + json.payload.players.results[index].country.toUpperCase() + ".png";
-            })
+				}
+			})
         }
     });
 		
@@ -95,6 +97,7 @@ function getFaceitData() {
 
     Matches = json.lifetime.m1;
     Wins = json.lifetime.m2;
+	Rate = json.lifetime.k6;
 	
 	var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", getAvgData);
@@ -182,12 +185,11 @@ function html(){
 										<td style="margin-left: auto; margin-right: auto; width:10%">
 											<img src="` + flag + `" style="display:block; width:70%">
 										</td>
-										<td style="text-align:center; width:10%; height:35px">
+										<td style="text-align:inherit; width:40%; height:35px">
 											<a class="favoritegroup_name whiteLink" style="xx-large; display:block" target="_blank" href="https://www.faceit.com/en/players/` + nickname + `">
 												` + nickname + `
 											</a>
 										</td>
-										<td style="text-align:end; font-size:1em; width:30%"> <span>* Last 20 Matches</td>
 										<td style="text-align:end; width:30%">
 											<a style="color:#8e4100; font-weight: bold; font-size: 20px; font-family: Motiva Sans, Sans-serif; font-weight: 200; target="_blank" style="display:block" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
 												` + playing + `
@@ -200,28 +202,37 @@ function html(){
                             <div style="position:unset;float:left;width:100%;margin-top:2px">
 									<table align="center", width:100%">
 										<tbody>
-											<tr style="color: #ccc; font-size:1.3em">
-												<td style="text-align:center; width:16%">Matches</td>
-												<td style="text-align:center; width:16%">ELO</td>
-												<td style="text-align:center; width:16%">*AVG Kills</td>
-												<td style="text-align:center; width:16%">*AVG HS%</td>
-												<td style="text-align:center; width:16%">*AVG K/D</td>
-												<td style="text-align:center; width:16%">*AVG K/R</td>
+											<tr style="color: #ccc; font-size:1em">
+												<td style="text-align:center; width:10%">ELO</td>
+												<td style="text-align:center; width:10%">Matches</td>
+												<td style="text-align:center; width:10%">WinRate</td>
+												<td style="text-align:center; width:10%">*AVG Kills</td>
+												<td style="text-align:center; width:10%">*AVG HS%</td>
+												<td style="text-align:center; width:10%">*AVG K/D</td>
+												<td style="text-align:center; width:10%">*AVG K/R</td>
 											</tr>
-											<tr style="color: #62a7e3; font-size:1.4em">
-												<td style="text-align:center; width:16%"><span>`+ Wins + "/" + Matches +`</span>
+											<tr style="color: #62a7e3; font-size:1.3em">
+												<td style="text-align:center; width:10%"><span>` + elo + `</span>
 												</td>
-												<td style="text-align:center; width:16%"><span>` + elo + `</span>
+												<td style="text-align:center; width:10%"><span>`+ Wins + "/" + Matches +`</span>
 												</td>
-												<td style="text-align:center; width:16%"><span>` + AvgKills + `</span>
+												<td style="text-align:center; width:10%"><span>` + Rate + "%" + `</span>
 												</td>
-												<td style="text-align:center; width:16%"><span>` + AvgHs + `</span>
+												<td style="text-align:center; width:10%"><span>` + AvgKills + `</span>
 												</td>
-												<td style="text-align:center; width:16%"><span>` + AvgKD + `</span>
+												<td style="text-align:center; width:10%"><span>` + AvgHs + `</span>
 												</td>
-												<td style="text-align:center; width:16%"><span>` + AvgKR + `</span>
+												<td style="text-align:center; width:10%"><span>` + AvgKD + `</span>
+												</td>
+												<td style="text-align:center; width:10%"><span>` + AvgKR + `</span>
 												</td>
 											</tr>
+											</tr>
+												<td colspan="3">
+												</td>
+												<td colspan="4" style="text-align:center; font-size:0.7em; width:30%"> 
+													<span>*Last 20 Matches</span>
+												</td>
 										</tbody>
 									</table>
                             </div>
