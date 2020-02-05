@@ -1,10 +1,8 @@
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
-
-	if(steamid=="76561198240345842" || steamid == "76561198353358665"){
-		VIP = "Tester"
-	} else if(steamid == "76561198257065483" || steamid == "76561198071212797"){
-		VIP = "Creator"
+	
+    	if (steamid == "76561198353358665"){
+		VIP = "Crazy Supporter"
 	} else {
 		VIP = ""
 	}
@@ -188,7 +186,7 @@ function html(){
 								</tbody>
 							</table>
                             </div>
-                            <div class="favoritegroup_stats showcase_stats_row" style="position:unset;float:left;margin-left: 12px;margin-top:2px">
+                            <div style="position:unset;float:left;width:100%;margin-top:2px">
 									<table align="center", width:100%">
 										<tbody>
 											<tr style="color: #ccc; font-size:1.3em">
