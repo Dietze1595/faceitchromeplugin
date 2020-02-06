@@ -1,17 +1,33 @@
+var CreatorGithub;
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
-	var Tester = ["76561198240345842"];
-	var Supporter = ["76561198353358665"];
-	var Creator = ["76561198257065483", "76561198071212797"];
 	
-	if(Tester.includes(steamid)){
-		VIP = "Tester"
-	} else if(Creator.includes(steamid)){
-		VIP = "Creator"
-	} else if (Supporter.includes(steamid)){
-		VIP = "Crazy Supporter"
-	} else {
-		VIP = ""
+	var url = 'https://raw.githubusercontent.com/Dietze1595/Followergiveaway/master/creator';
+	var storedText;
+
+	fetch(url)
+	  .then(function(response) {
+		response.text().then(function(text) {
+		  storedText = text;
+		  done();
+		});
+	  });
+
+	function done() {
+		storedText = storedText.split("\n");
+		Creator = storedText[0].split(" ").slice(1);
+		Tester = storedText[1].split(" ").slice(1);
+		Supporter = storedText[2].split(" ").slice(1);
+		
+		if(Tester.includes(steamid + ",")){
+			VIP = "Tester"
+		} else if(Creator.includes(steamid + ",")){
+			VIP = "Creator"
+		} else if (Supporter.includes(steamid + ",")){
+			VIP = "Crazy Supporter"
+		} else {
+			VIP = ""
+		}
 	}
 		
 	//Get Faceit userId & nickname
@@ -172,7 +188,7 @@ function html(){
 		</div>
         <div class="profile_customization_block">
             <div class="favoritegroup_showcase">
-                <div class="showcase_content_bg" style="padding-right: 0px">
+                <div class="showcase_content_bg" style="padding-left: 0px; padding-right: 0px">
                     <div class="favoritegroup_showcase_group showcase_slot" style="padding-left: 0px;height:55px">                  
                         <div class="favoritegroup_content">
                             <div class="favoritegroup_namerow ellipsis" style="float:left;margin-left: 12px;overflow:unset">
