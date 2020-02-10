@@ -42,15 +42,11 @@ if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID
 			VIP = ""
 		}
 	}
-	if(steamid == "76561197981898746"){
-		nickname = "Blacklisted Person";
-		html();
-	} else {
+	
 		var oReq = new XMLHttpRequest();
 		oReq.addEventListener("load", getFaceitId);
 		oReq.open("GET", "https://api.faceit.com/search/v1?limit=5&query=" + steamid, true);
 		oReq.send();
-	}	
 }
 
 function getFaceitId() {
