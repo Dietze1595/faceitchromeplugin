@@ -1,17 +1,3 @@
-VIP = ""
-flag = "";
-playing = "";
-faceitmatch = "";
-elo = 0;
-Wins = 0;
-Rate = 0;
-AvgHs = 0;
-Matches = 0;
-AvgKD = 0;
-AvgKR = 0;
-AvgKills = 0;
-level = 1;
-
 if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID")[0]) {
     let steamid = document.getElementsByName("abuseID")[0].value
 	
@@ -43,10 +29,10 @@ if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID
 		}
 	}
 	
-		var oReq = new XMLHttpRequest();
-		oReq.addEventListener("load", getFaceitId);
-		oReq.open("GET", "https://api.faceit.com/search/v1?limit=5&query=" + steamid, true);
-		oReq.send();
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", getFaceitId);
+	oReq.open("GET", "https://api.faceit.com/search/v1?limit=5&query=" + steamid, true);
+	oReq.send();
 }
 
 function getFaceitId() {
