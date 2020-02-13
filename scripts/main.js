@@ -154,8 +154,7 @@ function getAvgData() {
     AvgKills = Math.round(kills/divid);
     AvgHs = Math.round(HS/divid/100);
     AvgKD = (KD/divid/100).toFixed(2);
-    AvgKR = (KR/divid/100).toFixed(2);	
-	divid = divid-1;
+    AvgKR = (KR/divid/100).toFixed(2);
 	html();
 
 }
@@ -198,16 +197,16 @@ function html(){
 										<td style="margin-left: auto; margin-right: auto; width:10%">
 											<img src="` + flag + `" style="display:block; width:70%">
 										</td>
-										<td style="text-align:inherit; width:40%; height:35px">
+										<td style="text-align:inherit; width:55%; height:35px">
 											<a class="favoritegroup_name whiteLink" style="xx-large; display:block" target="_blank" href="https://www.faceit.com/en/players/` + nickname + `">
 												` + nickname + `
 											</a>
 										</td>
-										<td style="text-align:end; width:30%">
-											<a class="c" style="xx-large; display:block" target="_blank" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
+										<td style="text-align:end; width:20%">
+											<a class="c" style="xx-large; display:block; background: #FF5500; text-align: center; border-radius:7.5px" target="_blank" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
 												` + playing + `
 											</a>
-										<td style="width:3%"></td>
+										<td style="width:5%"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -244,7 +243,7 @@ function html(){
 												<td colspan="3">
 												</td>
 												<td colspan="4" style="text-align:end; font-size:0.7em; width:30%"> 
-													<span>*Last `+ divid +` Matches</span>
+													<span style="margin-right: 10px">*Last `+ divid +` Matches</span>
 												</td>
 										</tbody>
 									</table>
