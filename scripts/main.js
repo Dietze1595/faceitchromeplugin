@@ -155,7 +155,7 @@ function getAvgData() {
     AvgHs = Math.round(HS/divid/100);
     AvgKD = (KD/divid/100).toFixed(2);
     AvgKR = (KR/divid/100).toFixed(2);	
-	
+	divid = divid-1;
 	html();
 
 }
@@ -244,7 +244,7 @@ function html(){
 												<td colspan="3">
 												</td>
 												<td colspan="4" style="text-align:end; font-size:0.7em; width:30%"> 
-													<span>*Last 20 Matches</span>
+													<span>*Last `+ divid +` Matches</span>
 												</td>
 										</tbody>
 									</table>
