@@ -28,7 +28,7 @@ if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID
 			VIP = ""
 		}
 	}
-	
+
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", getFaceitId);
 	oReq.open("GET", "https://api.faceit.com/search/v1?limit=5&query=" + steamid, true);
@@ -38,7 +38,6 @@ if (document.getElementsByName("abuseID") && document.getElementsByName("abuseID
 function getFaceitId() {
     let json = JSON.parse(this.responseText);
 	
-	console.log(json)
 	if(json.payload.players.results.length == 0)
         return;
 	
@@ -84,7 +83,7 @@ function getFaceitElo() {
 function getFaceitMatch(){
 	let json = JSON.parse(this.responseText);
 	
-	if(!json.payload["ONGOING"]){
+	if(Object.keys(json.payload).length == 0){
 		teamname1 = ""
 		teamname2 = ""
 		faceitmatch = ""
@@ -96,7 +95,7 @@ function getFaceitMatch(){
 		faceitmatch = json.payload[names[0]][0].id
 		playing = "Go To Room"
 	}
-	
+		
 	// Get Faceit lifetime stats
 	var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", getFaceitData);
@@ -176,7 +175,7 @@ function html(){
 			<tbody>
 				<tr style="vertical-align: middle">
 					<td style="margin-left: auto; margin-right: auto; width:50%">Faceitstats</td>
-					<td style="text-align:end; width:50%; color:#D5AD6D; font-family: Motiva Sans">` + VIP + `
+					<td style="text-align:end; width:50%; font-family: Motiva Sans">` + VIP + `
 					</td>			
 					</tr>
 				</tbody>
@@ -205,10 +204,10 @@ function html(){
 											</a>
 										</td>
 										<td style="text-align:end; width:30%">
-											<a style="color:#8e4100; font-weight: bold; font-size: 20px; font-family: Motiva Sans, Sans-serif; font-weight: 200; target="_blank" style="display:block" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
+											<a class="c" style="xx-large; display:block" target="_blank" href="https://www.faceit.com/de/csgo/room/` + faceitmatch + `">
 												` + playing + `
 											</a>
-										<td style="width:10%"></td>
+										<td style="width:3%"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -244,7 +243,7 @@ function html(){
 											</tr>
 												<td colspan="3">
 												</td>
-												<td colspan="4" style="text-align:center; font-size:0.7em; width:30%"> 
+												<td colspan="4" style="text-align:end; font-size:0.7em; width:30%"> 
 													<span>*Last 20 Matches</span>
 												</td>
 										</tbody>
