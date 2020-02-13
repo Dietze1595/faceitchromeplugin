@@ -1,3 +1,24 @@
+/* unvisited link */
+.c:link {
+  color: red;
+}
+
+/* visited link */
+.c:visited {
+  color: green;
+}
+
+/* mouse over link */
+.c:hover {
+  color: hotpink;
+}
+
+/* selected link */
+.c:active {
+  color: blue;
+}
+
+
 .levelbox {
     float: left;
     width: 50px;
