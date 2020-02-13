@@ -1,21 +1,21 @@
 /* unvisited link */
 .c:link {
-  color: red;
+  color: #FF5500;
 }
 
 /* visited link */
 .c:visited {
-  color: green;
+  color: #FF5500;
 }
 
 /* mouse over link */
 .c:hover {
-  color: hotpink;
+  color: #ffbe9d;
 }
 
 /* selected link */
 .c:active {
-  color: blue;
+  color: #000052;
 }
 
 
